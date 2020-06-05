@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>AnimalsJQ</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body class="cvet1">
+	<script type="text/javascript">
+		var m = [
+			{
+				text: 'Животные',
+				childs: [
+					{
+						text: 'Млекопитающие',
+						childs: [
+							'Коровы',
+							'Ослы',
+							'Собаки',
+							'Тигры'
+						]
+					},
+					{
+						text: 'Другие',
+						childs: [
+							'Змеи',
+							'Птицы',
+							'Ящерицы'
+						]
+					},
+					{
+						text: 'Рыбы',
+						childs: [
+							{
+								text: 'Аквариумные',
+								childs: [
+									'Гуппи',
+									'Скалярии'
+								]
+							},
+							{
+								text: 'Морские',
+								childs: [
+									'Морская форель'
+								]
+							}
+						]
+					}
+				]
+			}
+			];
+		
+		function trees(childs) 
+		{
+			var ul = $('<ul/>')
+			
+			for (var znach of childs) 
+			{
+				var li = $('<li/>')
+				if (znach.text !== undefined) 
+					li.append(znach.text)
+				if (typeof znach !== 'object')
+					li.append(znach)
+				else if (znach.childs !== undefined) 
+					li.append(trees(znach.childs))
+				li.on('click', 
+				function(s) 
+				{
+					s.preventDefault()
+					$(this.firstElementChild).slideToggle()
+					console.log(this.firstChild.data, $(this).find("li").length)
+					return false
+				})
+				ul.append(li)
+			}
+			return ul
+		}
+		$("body").append(trees(m))
+	</script>
+</body>
+</html>

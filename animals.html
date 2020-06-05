@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Animals</title>
+</head>
+<body>
+	<script type="text/javascript">
+
+		const m = [
+			{
+				text: 'Животные',
+				childs: [
+					{
+						text: 'Млекопитающие',
+						childs: [
+							'Коровы',
+							'Ослы',
+							'Собаки',
+							'Тигры'
+						]
+					},
+					{
+						text: 'Рыбы',
+						childs: [
+							{
+								text: 'Аквариумные',
+								childs: [
+									'Гуппи',
+									'Скалярии'
+								]
+							},
+							{
+								text: 'Морские',
+								childs: [
+									'Морская форель'
+								]
+							}
+						]
+					}
+				]
+			},
+			{
+				text: 'Растения',
+				childs: [
+					{
+						text: 'Водоросли',
+						childs: [
+							'Зелёные',
+							'Харофиты'
+						]
+					},
+					{
+						text: 'Семенные растения',
+						childs: [
+							'Хвойные',
+							'Цветковые',
+							'Гинкговидные'
+						]
+					}
+				]
+			}
+		]
+
+		function generateList(childs) {
+			
+			let ul = document.createElement('ul')
+
+			for (let child of childs) {
+				let li = document.createElement('li')
+				if (child.text !== undefined) 
+					li.append(child.text)
+				if (typeof child !== 'object')
+					li.append(child)
+				else if (child.childs !== undefined) 
+					li.append(generateList(child.childs))
+				ul.append(li)
+			}
+			return ul
+		}
+		document.body.append(generateList(m))
+
+
+		function run(element) {
+			if (element.childNodes === undefined) return
+			for (let node of element.childNodes) {
+				console.log(node.nodeName, node.nodeType, node.nodeValue)
+				run(node)
+			}
+		}
+		run(document)
+	</script>
+</body>
+</html>
